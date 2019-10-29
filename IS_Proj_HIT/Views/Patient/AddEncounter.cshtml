@@ -1,0 +1,77 @@
+﻿<link rel="stylesheet" href="~/css/forms.css" />
+<div class="bg-primary m-1 p-1 text-white"><h4>Add Encounter</h4></div>
+@model IS_Proj_HIT.Models.Encounter
+<div class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <div class="patientBanner"><span class="heading">MRN:</span><br /> @(ViewBag.EncounterMRN ?? String.Empty)</div><br />
+    <br /><div class="patientBanner"><span class="heading">PATIENT: </span> @ViewBag.PatientFirstName @ViewBag.PatientMiddleName @ViewBag.PatientLastName</div>
+    <div class="dob patientBanner"><span class="heading">DOB: </span> @ViewBag.PatientDob.ToShortDateString()</div>
+    <div class="patientBanner"><span class="heading">Age: </span> @ViewBag.PatientAge</div>
+</div>
+<form method="post" id="encounter" name="encounter" asp-action="AddEncounter">
+    <div class="container" asp-validation-summary="All"></div>
+    <input asp-for="@Model.PatientCurrentAge" name="Patient Age" placeholder="12" type="hidden" value="@ViewBag.PatientAge" />
+    <input asp-for="@Model.Mrn" name="MRN" type="hidden" value="@ViewBag.EncounterMRN" />
+    <div class="row">
+        <div class="col-sm-4">
+            <label>Chief Complaint</label><br />
+            <textarea asp-for="@Model.ChiefComplaint" name="ChiefComplaint" placeholder="Johnson" type="text">
+            </textarea>
+        </div>
+        <div class="col-sm-4">
+            <label>Room Number</label><br />
+            <input asp-for="@Model.RoomNumber" name="RoomNumber" placeholder="316" type="number" maxlength="3" class="numberNoArrows" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <br /><label>Facility Registry Opt In Out</label>
+            <input asp-for="@Model.FacilityRegistryOptInOut" name="FacilityRegistryOptInOut" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label>Facilities</label><br />
+            <select class="form-control dropdowns" asp-for="@Model.FacilityId" name="Facility" asp-items="ViewBag.Facility"></select>
+        </div>
+        <div class="col-sm-4">
+            <label>Admit Type</label><br />
+            <select class="form-control dropdowns" asp-for="@Model.AdmitTypeId" name="AdmitType" asp-items="ViewBag.AdmitTypes"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label>Departments</label><br />
+            <select class="form-control dropdowns" asp-for="@Model.DepartmentId" name="PointOfOrigin" asp-items="ViewBag.Departments"></select>
+        </div>
+        <div class="col-sm-4">
+            <label>Encounter Physicians</label><br />
+            <select class="form-control dropdowns" asp-for="@Model.EncounterPhysiciansId" name="PointOfOrigin" asp-items="ViewBag.EncounterPhysicians"></select>
+        </div>
+        <div class="col-sm-4">
+            <label>Encounter Types</label><br />
+            <select class="form-control dropdowns" asp-for="@Model.EncounterTypeId" name="PointOfOrigin" asp-items="ViewBag.EncounterTypes"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label>Place Of Service</label><br />
+            <select class="form-control dropdowns" asp-for="@Model.PlaceOfServiceId" name="PlaceOfService" asp-items="ViewBag.PlacesOfService"></select>
+        </div>
+        <div class="col-sm-4">
+            <label>Point Of Origin</label><br />
+            <select class="form-control dropdowns" asp-for="@Model.PointOfOriginId" name="PointOfOrigin" asp-items="ViewBag.PointsOfOrigin"></select>
+        </div>
+    </div>
+    <br />
+    <input asp-for="@Model.LastModified" type="text" readonly hidden value="@(ViewBag.LastModified ?? String.Empty)" />
+    <button class="btn-primary" type="submit">Create</button>
+</form>
+
+<hr />
+<a asp-action="Index">Home</a>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"</script>
+
+
